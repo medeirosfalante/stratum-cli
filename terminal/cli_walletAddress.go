@@ -77,3 +77,15 @@ func (cli *CLI) listWalletAddress(objectQuery *string) {
 	println("--------------------------------------------------------")
 
 }
+
+//HelpWalletAddressListCommandPrint list command support wallet list
+func (cli *CLI) HelpWalletAddressListCommandPrint() {
+	fmt.Printf("---------------- Help to use WalletAddress List ----------------\n")
+	fmt.Println(`example command listWalletAddresss -query='{"wallet_eid":10}'`)
+	fmt.Println(`fields accept {
+    "wallet_address_eid":12
+    "wallet_id":12
+    "wallet_eid":12
+    "currency":"BTC"
+}`)
+}
