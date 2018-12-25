@@ -36,7 +36,7 @@ func (cli *CLI) createWallet(groupID *int, WalletEid *int) {
 }
 
 func printWallet(w *stratumsdk.WalletData) {
-	b, err := ioutil.ReadFile("./template/walletItem.txt") // just pass the file name
+	b, err := ioutil.ReadFile("./template/walletItem.txt")
 	if err != nil {
 		fmt.Print(err)
 	}
