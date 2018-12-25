@@ -20,6 +20,7 @@ func (cli *CLI) printUsage() {
 	fmt.Println("createwallet -groupID=GROUPID  - create wallet of GROUPID")
 	fmt.Println(`"lisWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
 	fmt.Println("createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID")
+	fmt.Println(`"listWalletAddresss - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
 
 }
 
@@ -102,7 +103,7 @@ func (cli *CLI) Run() {
 
 	if listWalletAddressCmd.Parsed() {
 		if *listWalletAddressHelp {
-			cli.HelpWalletListCommandPrint()
+			cli.HelpWalletAddressListCommandPrint()
 			os.Exit(0)
 		}
 		cli.listWalletAddress(listWalletAddressObjectQuery)
