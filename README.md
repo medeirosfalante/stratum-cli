@@ -10,3 +10,10 @@ stratum-cli is a commandline for stratum wallet api
 go get github.com/pquerna/ffjson
 go get github.com/rafaeltokyo/stratum-cli
 ```
+
+
+## How to run:
+``` bash
+cd $GOPATH/src/github.com/rafaeltokyo/stratum-cli
+ ./stratum-cli [command] [subcommand]
+```
