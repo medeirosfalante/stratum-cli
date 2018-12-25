@@ -1,0 +1,9 @@
+------------ wallet Address %[4]s -------------
+  WalletAddressEid   int       value=[ %[1]d ] 
+  WalletEid          int       value=[ %[2]d ] 
+  WalletAddressLabel string    value=[ %[3]s ] 
+  WalletAddress      string    value=[ %[4]s ] 
+  CurrencyName       string    value=[ %[5]s ] 
+  Currency           string    value=[ %[6]s ] 
+  WalletLabel        string    value=[ %[7]s ] 
+  WalletBalance      float64   value=[ %[8]f ] 
