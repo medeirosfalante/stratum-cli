@@ -16,12 +16,12 @@
 [[projects]]
   name = "github.com/rafaeltokyo/stratum-sdk-go"
   packages = ["stratumclient","stratumsdk"]
-  revision = "3aaf57b4376bec761371c313a1b659b79b5c5ee2"
+  revision = "cd44207565a6270d7f2fad8811921bfd9eec2372"
   version = "0.8.2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5b9275decf809c63ba7652ec682f20b0c14b369d00a878d3341b3260ff8de963"
+  inputs-digest = "dc55d2d238d207014906a04f36408362cd673100d9a9707cce0c0b9ecd0c0cec"
   solver-name = "gps-cdcl"
   solver-version = 1
