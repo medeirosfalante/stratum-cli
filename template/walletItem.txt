@@ -2,7 +2,7 @@
     WalletId           int      value=[ %[1]d ]  
     WalletEid          int      value=[ %[2]d ]    
     WalletLabel        string   value=[ %[3]s ] 
-    WalletBalance      float64  value=[ %[4]f ] 
+    WalletBalance      float64  value=[ %[4]g ] 
     WalletGroupId      int      value=[ %[5]d ] 
     WalletGroupLabel   string   value=[ %[6]s ] 
     WalletGroupEid     int      value=[ %[7]d ] 
