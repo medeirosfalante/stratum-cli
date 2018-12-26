@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -10,10 +9,7 @@ import (
 )
 
 func main() {
-	err := godotenv.Load("./st.env")
-	if err != nil {
-		log.Fatal("Error loading ~/st.env file")
-	}
+	godotenv.Load("./.env")
 	client := stratumsdk.Initial(os.Getenv("STRATUM_APIUSER"), os.Getenv("STRATUM_APIKEY"), false)
 	cli := terminal.CLI{Sclient: client}
 	cli.Run()
