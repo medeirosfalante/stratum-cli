@@ -17,7 +17,7 @@
   name = "github.com/rafaeltokyo/stratum-sdk-go"
   packages = ["stratumclient","stratumsdk"]
   revision = "3aaf57b4376bec761371c313a1b659b79b5c5ee2"
-  version = "0.8.0"
+  version = "0.8.2"
 
 [solve-meta]
   analyzer-name = "dep"

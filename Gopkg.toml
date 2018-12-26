@@ -23,7 +23,7 @@
 
 [[constraint]]
   name = "github.com/rafaeltokyo/stratum-sdk-go"
-  version = "0.8.0"
+  version = "0.8.2"
 
 [[constraint]]
   branch = "master"
