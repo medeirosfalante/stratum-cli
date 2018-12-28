@@ -21,6 +21,7 @@ func (cli *CLI) printUsage() {
 	fmt.Println(`"lisWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
 	fmt.Println("createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID")
 	fmt.Println(`"listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
+	fmt.Println(`"listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
 
 }
 
@@ -52,6 +53,11 @@ func (cli *CLI) Run() {
 	listWalletAddressCmd := flag.NewFlagSet("listWalletAddresss", flag.ExitOnError)
 	listWalletAddressObjectQuery := listWalletAddressCmd.String("query", "", "pass ObjectQuery for query in list")
 	listWalletAddressHelp := listWalletAddressCmd.Bool("h", false, "help to use walletList")
+	// list Operations commands
+	listOperationsCmd := flag.NewFlagSet("listOperations", flag.ExitOnError)
+	listOperationsObjectQuery := listOperationsCmd.String("query", "", "pass ObjectQuery for query in list")
+	listOperationsHelp := listOperationsCmd.Bool("h", false, "help to use operations list")
+
 	switch os.Args[1] {
 	case "createwallet":
 		err := createWalletCmd.Parse(os.Args[2:])
@@ -65,6 +71,11 @@ func (cli *CLI) Run() {
 		}
 	case "listWalletAddress":
 		err := listWalletAddressCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "listOperations":
+		err := listOperationsCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -107,6 +118,13 @@ func (cli *CLI) Run() {
 			os.Exit(0)
 		}
 		cli.listWalletAddress(listWalletAddressObjectQuery)
+	}
+	if listOperationsCmd.Parsed() {
+		if *listOperationsHelp {
+			cli.HelpOperationsListCommandPrint()
+			os.Exit(0)
+		}
+		cli.listOperations(listOperationsObjectQuery)
 	}
 
 }
