@@ -22,6 +22,7 @@ func (cli *CLI) printUsage() {
 	fmt.Println("createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID")
 	fmt.Println(`"listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
 	fmt.Println(`"listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
+	fmt.Println(`"withdraw - create withdraw commands: 	-walletId=YourWalletId -eid=ExternalId -amount=amount -desc=decription -otp=otppw  -h - help use withdraw`)
 
 }
 
@@ -57,6 +58,15 @@ func (cli *CLI) Run() {
 	listOperationsCmd := flag.NewFlagSet("listOperations", flag.ExitOnError)
 	listOperationsObjectQuery := listOperationsCmd.String("query", "", "pass ObjectQuery for query in list")
 	listOperationsHelp := listOperationsCmd.Bool("h", false, "help to use operations list")
+	// Create withdraw
+	withdrawCmd := flag.NewFlagSet("withdraw", flag.ExitOnError)
+	withdrawWalletId := withdrawCmd.Int("walletId", 0, "pass walletID withdraw for request withdraw")
+	withdrawEid := withdrawCmd.Int("eid", 0, "pass eid withdraw for request withdraw")
+	withdrawAmount := withdrawCmd.Float64("amount", 0, "pass amount withdraw for request withdraw")
+	withdrawDesc := withdrawCmd.String("desc", "", "pass desc withdraw for request withdraw")
+	withdrawDest := withdrawCmd.String("dest", "", "pass dest withdraw for request withdraw")
+	withdrawotp := withdrawCmd.String("otp", "", "pass otp withdraw for request withdraw")
+	withdrawHelp := withdrawCmd.Bool("h", false, "help to use withdraw")
 
 	switch os.Args[1] {
 	case "createwallet":
@@ -81,6 +91,11 @@ func (cli *CLI) Run() {
 		}
 	case "createwalletAddress":
 		err := createWalletAddressCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "withdraw":
+		err := withdrawCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -119,12 +134,25 @@ func (cli *CLI) Run() {
 		}
 		cli.listWalletAddress(listWalletAddressObjectQuery)
 	}
+
 	if listOperationsCmd.Parsed() {
 		if *listOperationsHelp {
 			cli.HelpOperationsListCommandPrint()
 			os.Exit(0)
 		}
 		cli.listOperations(listOperationsObjectQuery)
+	}
+	if withdrawCmd.Parsed() {
+		if *withdrawHelp {
+			cli.HelpWithdrawCommandPrint()
+			os.Exit(0)
+		}
+
+		if *withdrawEid == 0 || *withdrawWalletId == 0 || *withdrawAmount == 0 || *withdrawDesc == "" || *withdrawDest == "" || *withdrawotp == "" {
+			withdrawCmd.Usage()
+			os.Exit(1)
+		}
+		cli.RequestWithdraw(withdrawWalletId, withdrawAmount, withdrawDesc, withdrawDest, withdrawotp, withdrawEid)
 	}
 
 }

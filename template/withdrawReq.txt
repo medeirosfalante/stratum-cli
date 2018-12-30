@@ -1,0 +1,6 @@
+   DestAddress     string   value=[ %[1]s ] 
+   OperationAmount float64  value=[ %[2]g ] 
+   OperationDesc   string   value=[ %[3]s ] 
+   OperationEid    int      value=[ %[4]d ] 
+   OperationOtp    string   value=[ %[5]s ] 
+   WalletId        int      value=[ %[6]d ] 
