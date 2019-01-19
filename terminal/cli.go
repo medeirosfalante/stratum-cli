@@ -23,7 +23,7 @@ func (cli *CLI) printUsage() {
 	fmt.Println(`"listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
 	fmt.Println(`"listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
 	fmt.Println(`"withdraw - create withdraw commands: 	-walletId=YourWalletId -eid=ExternalId -amount=amount -desc=decription -otp=otppw  -h - help use withdraw`)
-
+	fmt.Println(`"fees - get fees operations: -currency  | -h - help use fees`)
 }
 
 func (cli *CLI) validateArgs() {
@@ -67,6 +67,11 @@ func (cli *CLI) Run() {
 	withdrawDest := withdrawCmd.String("dest", "", "pass dest withdraw for request withdraw")
 	withdrawotp := withdrawCmd.String("otp", "", "pass otp withdraw for request withdraw")
 	withdrawHelp := withdrawCmd.Bool("h", false, "help to use withdraw")
+	// get fees
+
+	feesCmd := flag.NewFlagSet("fees", flag.ExitOnError)
+	feesCurrency := feesCmd.String("currency", "", "pass currency")
+	feesHelp := feesCmd.Bool("h", false, "help to use operations list")
 
 	switch os.Args[1] {
 	case "createwallet":
@@ -86,6 +91,11 @@ func (cli *CLI) Run() {
 		}
 	case "listOperations":
 		err := listOperationsCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "fees":
+		err := feesCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -141,6 +151,14 @@ func (cli *CLI) Run() {
 			os.Exit(0)
 		}
 		cli.listOperations(listOperationsObjectQuery)
+	}
+
+	if feesCmd.Parsed() {
+		if *feesHelp {
+			cli.HelpOperationsListCommandPrint()
+			os.Exit(0)
+		}
+		cli.feesCurrency(feesCurrency)
 	}
 	if withdrawCmd.Parsed() {
 		if *withdrawHelp {
