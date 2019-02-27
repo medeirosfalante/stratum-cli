@@ -17,13 +17,13 @@ type CLI struct {
 
 func (cli *CLI) printUsage() {
 	fmt.Println("Usage:")
-	fmt.Println("createwallet -groupID=GROUPID  - create wallet of GROUPID")
-	fmt.Println(`"lisWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
-	fmt.Println("createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID")
-	fmt.Println(`"listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
-	fmt.Println(`"listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
-	fmt.Println(`"withdraw - create withdraw commands: 	-walletId=YourWalletId -eid=ExternalId -amount=amount -desc=decription -otp=otppw  -h - help use withdraw`)
-	fmt.Println(`"fees - get fees operations: -currency  | -h - help use fees`)
+	fmt.Println(`createwallet -groupID=GROUPID  - create wallet of GROUPID`)
+	fmt.Println(`listWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
+	fmt.Println(`createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID`)
+	fmt.Println(`listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
+	fmt.Println(`listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
+	fmt.Println(`withdraw - create withdraw commands: 	-walletId=YourWalletId -eid=ExternalId -amount=amount -desc=decription -otp=otppw  -h - help use withdraw`)
+	fmt.Println(`fees - get fees operations: -currency  | -h - help use fees`)
 }
 
 func (cli *CLI) validateArgs() {

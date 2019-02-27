@@ -22,4 +22,14 @@ cp .env_example .env
 ``` bash
 cd $GOPATH/src/github.com/rafaeltokyo/stratum-cli
  ./stratum-cli [command] [subcommand]
+
+# Examples:
+# List deposits:
+./stratum-cli listOperations -query='{"operation_type":"deposit"}'
+
+# List wallets in wallet group id 10:
+./stratum-cli listWallets -query='{"wallet_group_id":10}'
+
+# List all BTC addresses:
+./stratum-cli listWalletAddress -query='{"currency":"BTC"}'
 ```
