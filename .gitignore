@@ -2,3 +2,4 @@ vendor
 vendor.orig
 st.env
 .env
+stratum-cli

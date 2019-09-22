@@ -10,13 +10,13 @@ import (
 	"github.com/rafaeltokyo/stratum-sdk-go/stratumsdk"
 )
 
-func (cli *CLI) createWallet(groupID *int, WalletEid *int) {
+func (cli *CLI) createWallet(groupID *int, WalletEid *int, currency *string, label *string) {
 
 	walletCreatePayload := &stratumsdk.WalletPayload{
 		WalletEid:     *WalletEid,
 		WalletGroupId: *groupID,
-		WalletLabel:   "stratum-cli",
-		Currency:      "BTC",
+		WalletLabel:   *label,
+		Currency:      *currency,
 		WalletType:    "checking",
 	}
 

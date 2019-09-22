@@ -1,0 +1,5 @@
+-------------------- fee value=[ %[1]s ]    ------------------------ 
+    Currency          string  value=[ %[1]s ]  
+    DestType          string  value=[ %[2]s ]  
+    OperationType     string  value=[ %[3]s ]  
+    OperationFee      float64  value=[ %[4]s ]  

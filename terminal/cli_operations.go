@@ -46,6 +46,20 @@ func printOperation(op *stratumsdk.OperationData) {
 	)
 }
 
+func printFees(op *stratumsdk.FeeData) {
+	b, err := ioutil.ReadFile("./template/fees.txt")
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	fmt.Printf(string(b)+"\n",
+		op.Currency,
+		op.DestType,
+		op.OperationFee,
+		op.OperationType,
+	)
+}
+
 func (cli *CLI) listOperations(objectQuery *string) {
 	operationsListPayload := &stratumsdk.OperationPayload{}
 	if *objectQuery != "" {
@@ -70,6 +84,23 @@ func (cli *CLI) listOperations(objectQuery *string) {
 	fmt.Printf("--------------------- find %d Operations --------------------\n", totalFind)
 	for _, item := range *operations {
 		printOperation(&item)
+	}
+	println("--------------------------------------------------------")
+
+}
+
+func (cli *CLI) feesCurrency(currency *string) {
+	feePayload := &stratumsdk.FeePayload{Currency: *currency}
+	fees, apiErr, err := cli.Sclient.Operations().Fees(feePayload)
+	if err != nil {
+		fmt.Printf("sdk error:  %s ", err.Error())
+	}
+	if apiErr != nil {
+		fmt.Printf("apiError: %s ", apiErr.Data)
+	}
+	fmt.Printf("---------------------- Fees  -----------------------\n")
+	for _, item := range *fees {
+		printFees(&item)
 	}
 	println("--------------------------------------------------------")
 

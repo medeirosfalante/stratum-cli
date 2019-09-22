@@ -17,13 +17,13 @@ type CLI struct {
 
 func (cli *CLI) printUsage() {
 	fmt.Println("Usage:")
-	fmt.Println("createwallet -groupID=GROUPID  - create wallet of GROUPID")
-	fmt.Println(`"lisWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
-	fmt.Println("createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID")
-	fmt.Println(`"listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
-	fmt.Println(`"listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
-	fmt.Println(`"withdraw - create withdraw commands: 	-walletId=YourWalletId -eid=ExternalId -amount=amount -desc=decription -otp=otppw  -h - help use withdraw`)
-
+	fmt.Println(`createwallet -groupID=GROUPID  - create wallet of GROUPID currency=CURRENCY CURRENCY choose label=LABEL  - name the LABEL`)
+	fmt.Println(`listWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
+	fmt.Println(`createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID`)
+	fmt.Println(`listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
+	fmt.Println(`listOperations - list all operations commands: -query=ObjectQuery execute query  | -h - help use listOperations`)
+	fmt.Println(`withdraw - create withdraw commands: 	-walletId=YourWalletId -eid=ExternalId -amount=amount -desc=decription -otp=otppw  -h - help use withdraw`)
+	fmt.Println(`fees - get fees operations: -currency  | -h - help use fees`)
 }
 
 func (cli *CLI) validateArgs() {
@@ -42,6 +42,8 @@ func (cli *CLI) Run() {
 
 	createWalletGroupID := createWalletCmd.Int("groupID", 0, "pass group id for create HD wallet grouped")
 	createWalleWalletEid := createWalletCmd.Int("walletEid", 0, "pass walletid your custom id")
+	createWalleWalletCurrency := createWalletCmd.String("currency", "", "pass currency")
+	createWalleWalletLabel := createWalletCmd.String("label", "", "pass label create wallet")
 	// List Wallet commands
 	listWalletsCmd := flag.NewFlagSet("listWallets", flag.ExitOnError)
 	listWalletsObjectQuery := listWalletsCmd.String("query", "", "pass ObjectQuery for query in list")
@@ -67,6 +69,11 @@ func (cli *CLI) Run() {
 	withdrawDest := withdrawCmd.String("dest", "", "pass dest withdraw for request withdraw")
 	withdrawotp := withdrawCmd.String("otp", "", "pass otp withdraw for request withdraw")
 	withdrawHelp := withdrawCmd.Bool("h", false, "help to use withdraw")
+	// get fees
+
+	feesCmd := flag.NewFlagSet("fees", flag.ExitOnError)
+	feesCurrency := feesCmd.String("currency", "", "pass currency")
+	feesHelp := feesCmd.Bool("h", false, "help to use operations list")
 
 	switch os.Args[1] {
 	case "createwallet":
@@ -86,6 +93,11 @@ func (cli *CLI) Run() {
 		}
 	case "listOperations":
 		err := listOperationsCmd.Parse(os.Args[2:])
+		if err != nil {
+			log.Panic(err)
+		}
+	case "fees":
+		err := feesCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
 		}
@@ -109,7 +121,7 @@ func (cli *CLI) Run() {
 			createWalletCmd.Usage()
 			os.Exit(1)
 		}
-		cli.createWallet(createWalletGroupID, createWalleWalletEid)
+		cli.createWallet(createWalletGroupID, createWalleWalletEid, createWalleWalletCurrency, createWalleWalletLabel)
 	}
 	if listWalletsCmd.Parsed() {
 		if *listWalletsHelp {
@@ -141,6 +153,14 @@ func (cli *CLI) Run() {
 			os.Exit(0)
 		}
 		cli.listOperations(listOperationsObjectQuery)
+	}
+
+	if feesCmd.Parsed() {
+		if *feesHelp {
+			cli.HelpOperationsListCommandPrint()
+			os.Exit(0)
+		}
+		cli.feesCurrency(feesCurrency)
 	}
 	if withdrawCmd.Parsed() {
 		if *withdrawHelp {
