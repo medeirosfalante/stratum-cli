@@ -17,7 +17,7 @@ type CLI struct {
 
 func (cli *CLI) printUsage() {
 	fmt.Println("Usage:")
-	fmt.Println(`createwallet -groupID=GROUPID  - create wallet of GROUPID`)
+	fmt.Println(`createwallet -groupID=GROUPID  - create wallet of GROUPID currency=CURRENCY CURRENCY choose label=LABEL  - name the LABEL`)
 	fmt.Println(`listWallets - list all wallets commands: -query=ObjectQuery execute query  | -h - help use walletList`)
 	fmt.Println(`createwalletAddress -walletID=WALLETID  - create walletaAddress with walletID`)
 	fmt.Println(`listWalletAddress - list all walletAddress commands: -query=ObjectQuery execute query  | -h - help use walletAddressList`)
@@ -42,6 +42,8 @@ func (cli *CLI) Run() {
 
 	createWalletGroupID := createWalletCmd.Int("groupID", 0, "pass group id for create HD wallet grouped")
 	createWalleWalletEid := createWalletCmd.Int("walletEid", 0, "pass walletid your custom id")
+	createWalleWalletCurrency := createWalletCmd.String("currency", "", "pass currency")
+	createWalleWalletLabel := createWalletCmd.String("label", "", "pass label create wallet")
 	// List Wallet commands
 	listWalletsCmd := flag.NewFlagSet("listWallets", flag.ExitOnError)
 	listWalletsObjectQuery := listWalletsCmd.String("query", "", "pass ObjectQuery for query in list")
@@ -119,7 +121,7 @@ func (cli *CLI) Run() {
 			createWalletCmd.Usage()
 			os.Exit(1)
 		}
-		cli.createWallet(createWalletGroupID, createWalleWalletEid)
+		cli.createWallet(createWalletGroupID, createWalleWalletEid, createWalleWalletCurrency, createWalleWalletLabel)
 	}
 	if listWalletsCmd.Parsed() {
 		if *listWalletsHelp {
